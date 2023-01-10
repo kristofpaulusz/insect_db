@@ -11,15 +11,24 @@ class InsectController extends Controller
     {
         return Insect::all();
     }
-    public function store($id)
+    public function store(Request $request)
     {
+        $insect = new Insect();
+        $insect->name = $request->name;
+        $insect->nomenclature = $request->nomenclature;
+        $insect->inserted_by = $request->inserted_by;
+        $insect->extinct = $request->extinct;
+        $insect->save();
     }
     public function show($id)
     {
         return Insect::find($id);
     }
-    public function delete()
+
+    public function destroy($id)
     {
+        Insect::find($id)->delete();
+        return InsectController::index();
     }
     public function update()
     {
